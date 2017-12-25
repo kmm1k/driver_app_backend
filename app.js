@@ -21,4 +21,9 @@ app.use(function(req, res, next) {
   res.send("endpoint not found");
 });
 
+var mongoose = require('mongoose');
+mongoose.createConnection('mongodb://localhost/test');
+
+
+
 module.exports = app;
