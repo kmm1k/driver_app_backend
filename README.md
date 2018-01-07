@@ -6,6 +6,12 @@ adding mongodb:
 
 installing gulp:
 we want it only on dev >
-1) npm install --save-dev gulp
+1) $ npm install --save-dev gulp
 2) create gulpfile.js
-3) run gulp > gulp
+3) run gulp > $ gulp  
+
+running the server: 
+1) $ gulp
+
+installing passport for facebook login:
+1) npm install --save passport-facebook

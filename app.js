@@ -4,25 +4,39 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
 var app = express();
+
+var passport = require('passport');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/', index);
 
-//404
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-  res.send("endpoint not found");
+app.use(passport.initialize());
+
+var index = require('./routes/index')(passport);
+app.use("/", index)
+
+
+var initPassport = require('./config/passport');
+initPassport(passport);
+
+
+
+
+
+
+
+app.use(function(err, req, res, next) {
+    console.log(err);
 });
 
-var mongoose = require('mongoose');
-mongoose.createConnection('mongodb://localhost/test');
+
+
 
 
 
