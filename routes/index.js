@@ -1,4 +1,5 @@
 var express = require('express');
+var driver = require('../driver/driver');
 var router = express.Router();
 
 
@@ -9,6 +10,22 @@ module.exports = function (passport) {
     // route for home page
     router.get('/', function (req, res) {
         res.send('this is an api for driver app');
+    });
+    // route for home page
+    router.get('/drives', function (req, res) {
+        driver.getAllDrives(function(data) {
+            res.json(data)
+        })
+    });
+
+    // route for home page
+    router.post('/add', function (req, res) {
+        res.send(driver.addDrive(req, function(err, newDrive) {
+            if(err) {
+                throw err
+            }
+            res.send(newDrive)
+        }))
     });
 
     // route for login form
