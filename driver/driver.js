@@ -13,6 +13,7 @@ var drive = {
         newDrive.agreed = data.body.agreed
         newDrive.status = data.body.status
         newDrive.owner = data.body.owner
+        newDrive.date = data.body.date
         // save our user to the database
         newDrive.save(function (err) {
             if (err) {

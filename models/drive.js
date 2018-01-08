@@ -7,6 +7,7 @@ var DriveSchema = Schema({
     agreed      : String,
     status      : String,
     owner       : String,
+    date        : String,
     users       : [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 module.exports = mongoose.model('Drive', DriveSchema);
