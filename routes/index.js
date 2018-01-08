@@ -2,9 +2,6 @@ var express = require('express');
 var driver = require('../driver/driver');
 var router = express.Router();
 
-
-
-
 module.exports = function (passport) {
 
     // route for home page
@@ -13,18 +10,29 @@ module.exports = function (passport) {
     });
     // route for home page
     router.get('/drives', function (req, res) {
-        driver.getAllDrives(function(data) {
+        driver.getAllDrives(function (data) {
             res.json(data)
         })
     });
 
     // route for home page
     router.post('/add', function (req, res) {
-        res.send(driver.addDrive(req, function(err, newDrive) {
-            if(err) {
-                throw err
+        res.send(driver.addDrive(req, function (err, newDrive) {
+            if (err) {
+                console.log(err)
+                res.end(err)
             }
             res.send(newDrive)
+        }))
+    });
+
+    router.post('/delete', function (req, res) {
+        res.send(driver.deleteDrive(req, function (err) {
+            if (err) {
+                console.log(err)
+                res.end(err)
+            }
+            res.json({success: true})
         }))
     });
 
@@ -34,7 +42,7 @@ module.exports = function (passport) {
     // route for processing the signup form
 
     // route for showing the profile page
-    router.get('/profile',isAuthenticated,  function (req, res) {
+    router.get('/profile', isAuthenticated, function (req, res) {
         res.send(req.user);
     });
 
@@ -48,10 +56,10 @@ module.exports = function (passport) {
     }));
 
     // handle the callback after facebook has authenticated the user
-    router.get('/auth/facebook/callback', passport.authenticate('facebook', { session: false }),
-        function(req, res) {
+    router.get('/auth/facebook/callback', passport.authenticate('facebook', {session: false}),
+        function (req, res) {
             console.log(req)
-            res.json({ id: req.user.id, username: req.user.name, picture: req.user.picture });
+            res.json({id: req.user.id, username: req.user.name, picture: req.user.picture});
         });
 
     // route for logging out

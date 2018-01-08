@@ -14,6 +14,7 @@ var drive = {
         newDrive.status = data.body.status
         newDrive.owner = data.body.owner
         newDrive.date = data.body.date
+        newDrive.users = [].push(data.body.owner)
         // save our user to the database
         newDrive.save(function (err) {
             if (err) {
@@ -23,6 +24,25 @@ var drive = {
             // if successful, return the new user
             return done(null, newDrive);
         });
+    },
+    deleteDrive: function(req, done) {
+        Drive.findOne({_id: req.body._id}, function(err, drive){
+            drive.status = "archived"
+            drive.save(function (err) {
+                if (err) {
+                    return done(err);
+                }
+
+                // if successful, return the new user
+                return done(null, drive);
+            });
+        });
+    },
+    subscribe: function() {
+
+    },
+    unsubscribe: function() {
+
     }
 }
 
