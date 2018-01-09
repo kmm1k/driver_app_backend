@@ -35,7 +35,18 @@ var dummyData = {
                 users: [userId]
             }
         }
-        driver.addDrive(data, function(err, drive) {
+        driver.addDrive(data, function (err, drive) {
+            done(err, drive)
+        })
+    },
+    subscribeDummy: function (driveId, userId, done) {
+        var data = {
+            body: {
+                driveId: driveId,
+                userId: userId
+            }
+        }
+        driver.subscribe(data, function (err, drive) {
             done(err, drive)
         })
     }

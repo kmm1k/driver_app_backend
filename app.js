@@ -36,8 +36,20 @@ mongoose.connect('mongodb://localhost/test',function(){
             if(err)
                 console.log(err)
             console.log(drive)
+            //add drive user for our drive
+            dummyData.addDummyUser("RMS Mihkel", 'static/list/audo.jpg', function(err, newUser) {
+                if(err)
+                    console.log(err)
+                console.log(newUser)
+                dummyData.subscribeDummy(drive._id, newUser._id, function(err, drive) {
+                    if(err)
+                        console.log(err)
+                    console.log(drive)
+                })
+            })
         })
     })
+
 });
 
 var app = express();
