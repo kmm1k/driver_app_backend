@@ -12,7 +12,7 @@ var passport = require('passport');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(passport.initialize());
 
@@ -22,8 +22,13 @@ app.use("/", index)
 
 var initPassport = require('./config/passport');
 initPassport(passport);
-app.use(function (err, req, res, next) {
-    console.log(err);
+
+/// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
+
 
 module.exports = app;

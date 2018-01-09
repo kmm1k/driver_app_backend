@@ -14,7 +14,8 @@ var drive = {
         newDrive.status = data.body.status
         newDrive.owner = data.body.owner
         newDrive.date = data.body.date
-        newDrive.users = [].push(data.body.owner)
+        newDrive.users = data.body.users
+        newDrive.seats = data.body.seats
         // save our user to the database
         newDrive.save(function (err) {
             if (err) {
