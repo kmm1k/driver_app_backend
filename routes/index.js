@@ -45,6 +45,28 @@ module.exports = function (passport) {
         })
     });
 
+    router.post('/subscribe', function (req, res) {
+        driver.subscribe(req, function (err, drive) {
+            if (err) {
+                console.log(err)
+                res.end(err)
+            } else {
+                res.send(drive)
+            }
+        })
+    });
+
+    router.post('/unsubscribe', function (req, res) {
+        driver.unsubscribe(req, function (err) {
+            if (err) {
+                console.log(err)
+                res.end(err)
+            } else {
+                res.send(drive)
+            }
+        })
+    });
+
     // route for login form
     // route for processing the login form
     // route for signup form

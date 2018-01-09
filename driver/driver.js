@@ -39,11 +39,32 @@ var drive = {
             });
         });
     },
-    subscribe: function() {
-
+    subscribe: function(req, done) {
+        Drive.findOne({_id: req.body.driveId}, function(err, drive){
+            drive.users.push(req.body.userId)
+            drive.save(function (err) {
+                if (err) {
+                    return done(err);
+                }
+                // if successful, return the new user
+                return done(null, drive);
+            });
+        });
     },
-    unsubscribe: function() {
-
+    unsubscribe: function(req, done) {
+        Drive.findOne({_id: req.body.driveId}, function(err, drive){
+            var index = drive.users.indexOf(req.body.userId);
+            if (index > -1) {
+                drive.users.splice(index, 1);
+            }
+            drive.save(function (err) {
+                if (err) {
+                    return done(err);
+                }
+                // if successful, return the new user
+                return done(null, drive);
+            });
+        });
     }
 }
 
