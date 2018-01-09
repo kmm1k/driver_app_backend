@@ -4,7 +4,41 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+var dummyData = require('./dummydata');
+mongoose.connect('mongodb://localhost/test',function(){
+    /* Drop the DB */
+    mongoose.connection.db.dropDatabase();
+    dummyData.addDummyUser("RMS Kull", 'static/list/bmw.jpg', function(err, newUser) {
+        if(err)
+            console.log(err)
+        console.log(newUser)
+        dummyData.addDummyDrive(newUser._id, "Kuperjanovi JVP", "Tartu", function(err, drive) {
+            if(err)
+                console.log(err)
+            console.log(drive)
+        })
+    })
+    dummyData.addDummyUser("N-SRS Rammu", 'static/list/audo.jpg', function(err, newUser) {
+        if(err)
+            console.log(err)
+        console.log(newUser)
+        dummyData.addDummyDrive(newUser._id, "Viru JVP", "Tallinn", function(err, drive) {
+            if(err)
+                console.log(err)
+            console.log(drive)
+        })
+    })
+    dummyData.addDummyUser("N-SRS Alas", 'static/list/lex.jpg', function(err, newUser) {
+        if(err)
+            console.log(err)
+        console.log(newUser)
+        dummyData.addDummyDrive(newUser._id, "Vahipataljon", "Hiiumaa", function(err, drive) {
+            if(err)
+                console.log(err)
+            console.log(drive)
+        })
+    })
+});
 
 var app = express();
 
@@ -29,6 +63,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 
 module.exports = app;
