@@ -11,4 +11,4 @@ var DriveSchema = Schema({
     seats       : Number,
     users       : [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
-module.exports = mongoose.model('Drive', DriveSchema);
+module.exports = mongoose.model('Drive', DriveSchema, 'Drive');

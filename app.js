@@ -11,40 +11,32 @@ mongoose.connect('mongodb://localhost/test',function(){
     dummyData.addDummyUser("RMS Kull", 'static/list/bmw.jpg', function(err, newUser) {
         if(err)
             console.log(err)
-        console.log(newUser)
         dummyData.addDummyDrive(newUser._id, "Kuperjanovi JVP", "Tartu", function(err, drive) {
             if(err)
                 console.log(err)
-            console.log(drive)
         })
     })
     dummyData.addDummyUser("N-SRS Rammu", 'static/list/audo.jpg', function(err, newUser) {
         if(err)
             console.log(err)
-        console.log(newUser)
         dummyData.addDummyDrive(newUser._id, "Viru JVP", "Tallinn", function(err, drive) {
             if(err)
                 console.log(err)
-            console.log(drive)
         })
     })
     dummyData.addDummyUser("N-SRS Alas", 'static/list/lex.jpg', function(err, newUser) {
         if(err)
             console.log(err)
-        console.log(newUser)
         dummyData.addDummyDrive(newUser._id, "Vahipataljon", "Hiiumaa", function(err, drive) {
             if(err)
                 console.log(err)
-            console.log(drive)
             //add drive user for our drive
             dummyData.addDummyUser("RMS Mihkel", 'static/list/audo.jpg', function(err, newUser) {
                 if(err)
                     console.log(err)
-                console.log(newUser)
                 dummyData.subscribeDummy(drive._id, newUser._id, function(err, drive) {
                     if(err)
                         console.log(err)
-                    console.log(drive)
                 })
             })
         })

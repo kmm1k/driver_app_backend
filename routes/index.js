@@ -10,14 +10,21 @@ module.exports = function (passport) {
         res.send('this is an api for driver app');
     });
     // route for home page
-    router.get('/drives', function (req, res) {
+    router.get('/drive', function (req, res) {
         driver.getAllDrives(function (data) {
             res.json(data)
         })
     });
 
+    router.get('/drive/:driveId', function (req, res) {
+        driver.findDrive(req.params.driveId, function (data) {
+            console.log(data)
+            res.json(data)
+        })
+    });
+
     // route for home page
-    router.get('/users', function (req, res) {
+    router.get('/user', function (req, res) {
         user.getAllUsers(function (data) {
             res.json(data)
         })
